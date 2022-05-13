@@ -199,8 +199,8 @@ void RlogMessageParser::selectDBCDialog() {
   {
     QStringList dbc_items;
     dbc_items.append("");
-    for (auto dbc : get_dbcs()) {
-      dbc_items.append(dbc->name);
+    for (std::string dbc_name : get_dbc_names()) {
+      dbc_items.append(QString::fromStdString(dbc_name));
     }
     bool dbc_selected;
     QString selected_str = QInputDialog::getItem(
