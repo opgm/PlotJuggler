@@ -203,7 +203,7 @@ void DialogTransformEditor::on_listTransforms_itemSelectionChanged()
 
     auto widget = ts->transform()->optionsWidget();
     int index = ui->stackedWidgetArguments->indexOf(widget);
-    if (index == -1)
+    if (index == -1 && widget)
     {
       index = ui->stackedWidgetArguments->addWidget(widget);
     }
@@ -214,7 +214,13 @@ void DialogTransformEditor::on_listTransforms_itemSelectionChanged()
     {
       connect(ts->transform().get(), &TransformFunction::parametersChanged, this, [=]() {
         ts->updateCache(true);
-        _plotwidget->zoomOut(false);
+        if( ui->checkBoxAutoZoom->isChecked())
+        {
+          _plotwidget->zoomOut(false);
+        }
+        else{
+          _plotwidget->replot();
+        }
       });
       _connected_transform_widgets.insert(widget);
     }
