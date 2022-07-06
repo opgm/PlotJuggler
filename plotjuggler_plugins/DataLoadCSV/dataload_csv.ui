@@ -166,9 +166,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QPlainTextEdit" name="rawText">
+        <widget class="QCodeEditor" name="rawText">
          <property name="lineWrapMode">
-          <enum>QPlainTextEdit::NoWrap</enum>
+          <enum>QTextEdit::NoWrap</enum>
          </property>
          <property name="readOnly">
           <bool>true</bool>
@@ -182,7 +182,7 @@
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -194,6 +194,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCodeEditor</class>
+   <extends>QTextEdit</extends>
+   <header location="global">QCodeEditor</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
