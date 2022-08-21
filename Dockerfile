@@ -2,7 +2,7 @@
 FROM ubuntu:22.04
 
 RUN apt update && apt install -y apt-utils apt-transport-https software-properties-common
-RUN apt purge python3
+RUN apt-get purge --auto-remove -y python3
 RUN add-apt-repository ppa:deadsnakes/ppa -y
 # PlotJuggler Dependencies
 RUN apt update && apt install apt-utils apt-transport-https cmake git build-essential qtbase5-dev \
