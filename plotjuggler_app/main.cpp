@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 #include "mainwindow.h"
 #include <iostream>
 #include <QApplication>
@@ -80,7 +86,7 @@ QPixmap getFunnySplashscreen()
   srand(time(nullptr));
 
   auto getNum = []() {
-    const int last_image_num = 71;
+    const int last_image_num = 88;
     int n = rand() % (last_image_num + 2);
     if (n > last_image_num)
     {
@@ -92,7 +98,7 @@ QPixmap getFunnySplashscreen()
   std::list<int> previous_nums;
 
   QStringList previous_list = settings.value("previousFunnyMemesList").toStringList();
-  for(auto str: previous_list)
+  for (auto str : previous_list)
   {
     int num = str.toInt();
     previous_set.insert(num);
@@ -105,16 +111,16 @@ QPixmap getFunnySplashscreen()
     n = getNum();
   }
 
-  while(previous_nums.size() >= 10)
+  while (previous_nums.size() >= 10)
   {
     previous_nums.pop_front();
   }
   previous_nums.push_back(n);
 
   QStringList new_list;
-  for(int num: previous_nums)
+  for (int num : previous_nums)
   {
-    new_list.push_back( QString::number(num) );
+    new_list.push_back(QString::number(num));
   }
 
   settings.setValue("previousFunnyMemesList", new_list);
@@ -142,14 +148,14 @@ std::vector<std::string> MergeArguments(const std::vector<std::string>& args)
     // Qt::CaseSensitive)
     cmdline_arg = cmdline_arg.replace("_0x20_", " ", Qt::CaseSensitive);
     cmdline_arg = cmdline_arg.replace("_0x3b_", ";", Qt::CaseSensitive);
-    new_args.push_back( strdup(cmdline_arg.toLocal8Bit().data()) );
+    new_args.push_back(strdup(cmdline_arg.toLocal8Bit().data()));
   }
 
   // If an argument appears repeated, the second value overrides previous one.
   // Do this after adding default_cmdline_args so the command-line override default
   for (size_t i = 1; i < args.size(); ++i)
   {
-    new_args.push_back( args[i] );
+    new_args.push_back(args[i]);
   }
 
   return new_args;
@@ -164,9 +170,9 @@ int main(int argc, char* argv[])
   std::vector<std::string> args;
 
 #if !defined(COMPILED_WITH_CATKIN) && !defined(COMPILED_WITH_AMENT)
-  for(int i=0; i<argc; i++)
+  for (int i = 0; i < argc; i++)
   {
-    args.push_back( argv[i] );
+    args.push_back(argv[i]);
   }
 #elif defined(COMPILED_WITH_CATKIN)
   ros::removeROSArgs(argc, argv, args);
@@ -178,12 +184,12 @@ int main(int argc, char* argv[])
 
   int new_argc = args.size();
   std::vector<char*> new_argv;
-  for(int i=0; i<new_argc; i++)
+  for (int i = 0; i < new_argc; i++)
   {
-    new_argv.push_back( args[i].data() );
+    new_argv.push_back(args[i].data());
   }
 
-  QApplication app( new_argc, new_argv.data() );
+  QApplication app(new_argc, new_argv.data());
 
   //-------------------------
 
@@ -301,6 +307,11 @@ int main(int argc, char* argv[])
                                     "file_name (no extension)");
   parser.addOption(start_streamer);
 
+  QCommandLineOption window_title(QStringList() << "window_title",
+                                  "Set the window title",
+                                  "window_title");
+  parser.addOption(window_title);
+  
   parser.process(*qApp);
 
   if (parser.isSet(publish_option) && !parser.isSet(layout_option))
@@ -345,7 +356,7 @@ int main(int argc, char* argv[])
   QString uuid = settings.value("UUID", QUuid::createUuid().toString()).toString();
   settings.setValue("UUID", uuid);
 
-  request.setUrl(QUrl(QString("https://l4g9l4.deta.dev/check_updates/%1").arg(uuid)) );
+  request.setUrl(QUrl(QString("https://l4g9l4.deta.dev/check_updates/%1").arg(uuid)));
   manager.get(request);
 
   MainWindow* w = nullptr;
