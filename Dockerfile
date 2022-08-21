@@ -51,6 +51,8 @@ RUN update-alternatives --config python
 
 RUN apt-get install -y python3-pip python-is-python3 python3-openssl
 
+RUN pip install pip==21.3.1
+
 RUN pip install pkgconfig jinja2
 
 # installs scons, pycapnp, cython, etc.
