@@ -1,6 +1,6 @@
 [submodule "3rdparty/cereal"]
 	path = 3rdparty/cereal
-	url = ../../opgm/cereal.git
+	url = ../../commaai/cereal.git
 [submodule "3rdparty/opendbc"]
 	path = 3rdparty/opendbc
-	url = ../../opgm/opendbc.git
+	url = ../../commaai/opendbc.git

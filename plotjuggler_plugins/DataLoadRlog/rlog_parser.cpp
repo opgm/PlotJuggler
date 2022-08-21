@@ -203,6 +203,8 @@ void RlogMessageParser::selectDBCDialog() {
     for (std::string dbc_name : get_dbc_names()) {
       dbc_items.append(QString::fromStdString(dbc_name));
     }
+    dbc_items.sort(Qt::CaseInsensitive);
+
     bool dbc_selected;
     QString selected_str = QInputDialog::getItem(
       nullptr, QObject::tr("Select DBC"), QObject::tr("Parse CAN using DBC:"), dbc_items, 0, false, &dbc_selected);
