@@ -1,9 +1,10 @@
 #Download base image ubuntu 22.04
 FROM ubuntu:22.04
 
-RUN apt update && apt install -y apt-utils apt-transport-https
+RUN apt update && apt install -y apt-utils apt-transport-https software-properties-common
+RUN add-apt-repository ppa:deadsnakes/ppa -y
 # PlotJuggler Dependencies
-RUN apt install apt-utils apt-transport-https cmake git build-essential qtbase5-dev \
+RUN apt update && apt install apt-utils apt-transport-https cmake git build-essential qtbase5-dev \
     libqt5svg5-dev libqt5websockets5-dev libqt5opengl5-dev libqt5x11extras5-dev nano qtchooser qt5-qmake qtbase5-dev-tools -y
 
 # openpilot stuff
@@ -16,10 +17,11 @@ RUN apt-get install -y --no-install-recommends \
   libdwarf-dev \
   libzmq3-dev \
   libdw-dev \
-  python3 \
-  python3-dev \
-  python3-pip \
-  python-is-python3 \
+  python3.8 \
+  python3.8-dev \
+  python3.8-venv \
+  python3.8-lib2to3 \
+  python3.8-distutils \
   wget \
   software-properties-common \
   qtchooser \
@@ -34,7 +36,6 @@ RUN apt-get install -y --no-install-recommends \
   capnproto \
   curl \
   git \
-  python3-openssl \
   libbz2-dev \
   libcapnp-dev \
   libssl-dev \
@@ -44,6 +45,10 @@ RUN apt-get install -y --no-install-recommends \
   clang \
   ocl-icd-opencl-dev \
   opencl-headers
+
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1 & update-alternatives --config python
+
+RUN apt-get install -y python3-pip python-is-python3 python3-openssl
 
 RUN pip install pkgconfig jinja2
 
