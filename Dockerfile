@@ -2,6 +2,7 @@
 FROM ubuntu:22.04
 
 RUN apt update && apt install -y apt-utils apt-transport-https software-properties-common
+RUN apt purge python3
 RUN add-apt-repository ppa:deadsnakes/ppa -y
 # PlotJuggler Dependencies
 RUN apt update && apt install apt-utils apt-transport-https cmake git build-essential qtbase5-dev \
@@ -46,10 +47,14 @@ RUN apt-get install -y --no-install-recommends \
   ocl-icd-opencl-dev \
   opencl-headers
 
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1
-RUN update-alternatives --config python
+#RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1
+#RUN update-alternatives --config python
 
-RUN apt-get install -y python3-pip python-is-python3 python3-openssl
+RUN apt-get install -y python-is-python3
+
+RUN python -m ensurepip
+
+RUN python --version
 
 RUN pip install pip==21.3.1
 
