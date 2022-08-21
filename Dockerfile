@@ -46,7 +46,8 @@ RUN apt-get install -y --no-install-recommends \
   ocl-icd-opencl-dev \
   opencl-headers
 
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1 & update-alternatives --config python
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1
+RUN update-alternatives --config python
 
 RUN apt-get install -y python3-pip python-is-python3 python3-openssl
 
