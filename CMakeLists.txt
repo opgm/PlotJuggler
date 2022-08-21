@@ -141,6 +141,9 @@ else()
     set(GUI_TYPE WIN32)
 ENDIF()
 
+find_package(Cereal)
+find_package(Rlog)
+
 include_directories(
     ${Qt5Core_INCLUDE_DIRS}
     ${Qt5Widgets_INCLUDE_DIRS}
@@ -158,6 +161,9 @@ include_directories(
     ./3rdparty/lua-5.4.3/src
     ./3rdparty/QCodeEditor/include
     ./3rdparty/lz4
+    ./3rdparty/opendbc/can
+    ./3rdparty/cereal/messaging
+    ./3rdparty/cereal
 )
 
 #########################  BASE library  ####################################
@@ -264,6 +270,9 @@ add_subdirectory( plotjuggler_plugins/ToolboxLuaEditor )
 
 add_subdirectory( plotjuggler_plugins/ParserProtobuf )
 add_subdirectory( plotjuggler_plugins/ParserROS )
+
+add_subdirectory( plotjuggler_plugins/DataLoadRlog )
+add_subdirectory( plotjuggler_plugins/DataStreamCereal )
 
 # Install targets
 
